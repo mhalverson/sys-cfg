@@ -1,10 +1,12 @@
-#I like git autocomplete
-source ~/git-completion.bash
-
+#I like git autocomplete, AND
 #I have private things that I don't want checked in to a public git repo
-if [ -f ~/.bashrc_private ]; then
-    source ~/.bashrc_private
-fi
+for SRC_FILE in ~/git-completion.bash ~/.bashrc_private
+do
+    if [ -f $SRC_FILE ]; then
+        echo "sourcing $SRC_FILE"
+        source $SRC_FILE
+    fi
+done
 
 #I like a simple prompt
 export PS1="\w > "
