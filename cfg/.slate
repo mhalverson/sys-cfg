@@ -52,6 +52,8 @@ bind e:cmd hint ASDFGHJKLQWERTYUIOPCVBN # use whatever keys you want
 alias full        move screenOriginX;screenOriginY screenSizeX;screenSizeY
 alias lefthalf    move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
 alias righthalf   move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY
+alias bottomhalf  push bottom bar-resize:screenSizeY/2
+alias tophalf     push top bar-resize:screenSizeY/2
 alias topleft     corner top-left     resize:screenSizeX/2;screenSizeY/2
 alias topright    corner top-right    resize:screenSizeX/2;screenSizeY/2
 alias bottomleft  corner bottom-left  resize:screenSizeX/2;screenSizeY/2
@@ -59,11 +61,21 @@ alias bottomright corner bottom-right resize:screenSizeX/2;screenSizeY/2
 
 # Numpad location Bindings
 bind pad1 ${bottomleft}
-bind pad2 push bottom bar-resize:screenSizeY/2
+bind pad2 ${tophalf}
 bind pad3 ${bottomright}
 bind pad4 ${lefthalf}
 bind pad5 ${full}
 bind pad6 ${righthalf}
 bind pad7 ${topleft}
-bind pad8 push top bar-resize:screenSizeY/2
+bind pad8 ${bottomhalf}
 bind pad9 ${topright}
+
+bind m:ctrl;alt;cmd     ${full}
+bind left:ctrl;alt;cmd  ${lefthalf}
+bind right:ctrl;alt;cmd ${righthalf}
+bind down:ctrl;alt;cmd  ${bottomhalf}
+bind up:ctrl;alt;cmd    ${tophalf}
+bind left:shift;ctrl;alt  ${topleft}
+bind up:shift;ctrl;alt    ${topright}
+bind down:shift;ctrl;alt  ${bottomleft}
+bind right:shift;ctrl;alt ${bottomright}
