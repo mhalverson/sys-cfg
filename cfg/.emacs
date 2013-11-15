@@ -22,10 +22,6 @@
 (require 'column-marker)
 (add-hook 'after-change-major-mode-hook (lambda () (interactive) (column-marker-1 80)))
 
-;; I like knowing what line I'm on.
-(set-face-background 'highlight "gray74")
-(add-hook 'after-change-major-mode-hook (lambda () (hl-line-mode 1)))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Things maybe to add.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
