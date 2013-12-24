@@ -28,9 +28,9 @@ config resizePercentOf screenSize
 # bind down:shift;alt  nudge +0   +10%
 
 # Throw Bindings
-# bind 1:ctrl;alt         throw 0 resize
-# bind 2:ctrl;alt         throw 1 resize
-# bind 3:ctrl;alt         throw 2 resize
+bind 1:ctrl;alt         throw 0 resize
+bind 2:ctrl;alt         throw 1 resize
+bind 3:ctrl;alt         throw 2 resize
 # bind right:ctrl;alt;cmd throw right resize
 # bind left:ctrl;alt;cmd  throw left  resize
 # bind up:ctrl;alt;cmd    throw up    resize
@@ -61,13 +61,13 @@ alias bottomright corner bottom-right resize:screenSizeX/2;screenSizeY/2
 
 # Numpad location Bindings
 bind pad1 ${bottomleft}
-bind pad2 ${tophalf}
+bind pad2 ${bottomhalf}
 bind pad3 ${bottomright}
 bind pad4 ${lefthalf}
 bind pad5 ${full}
 bind pad6 ${righthalf}
 bind pad7 ${topleft}
-bind pad8 ${bottomhalf}
+bind pad8 ${tophalf}
 bind pad9 ${topright}
 
 bind m:ctrl;alt;cmd     ${full}
