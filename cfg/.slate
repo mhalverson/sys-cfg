@@ -72,6 +72,14 @@ alias right-third        move screenSizeX*2/3;screenOriginY screenSizeX/3;screen
 alias lower-right-sixth  move screenSizeX*2/3;screenSizeY/2 screenSizeX/3;screenSizeY
 alias upper-right-sixth  move screenSizeX*2/3;screenOriginY screenSizeX/3;screenSizeY/2
 
+
+alias left-two-thirds        move screenOriginX;screenOriginY   screenSizeX*2/3;screenSizeY
+alias lower-left-two-sixths  move screenOriginX;screenSizeY/2   screenSizeX*2/3;screenSizeY
+alias upper-left-two-sixths  move screenOriginX;screenOriginY   screenSizeX*2/3;screenSizeY/2
+alias right-two-thirds       move screenSizeX/3;screenOriginY   screenSizeX;screenSizeY
+alias lower-right-two-sixths move screenSizeX/3;screenSizeY/2   screenSizeX;screenSizeY
+alias upper-right-two-sixths move screenSizeX/3;screenOriginY   screenSizeX;screenSizeY/2
+
 ### Custom Bindings
 
 # Window Hints
@@ -87,6 +95,13 @@ bind pad6 ${right-third}
 bind pad7 ${upper-left-sixth}
 bind pad8 ${upper-middle-sixth}
 bind pad9 ${upper-right-sixth}
+
+bind pad1:ctrl;alt ${lower-left-two-sixths}
+bind pad3:ctrl;alt ${lower-right-two-sixths}
+bind pad4:ctrl;alt ${left-two-thirds}
+bind pad6:ctrl;alt ${right-two-thirds}
+bind pad7:ctrl;alt ${upper-left-two-sixths}
+bind pad9:ctrl;alt ${upper-right-two-sixths}
 
 bind 1:ctrl;alt;cmd ${lower-left-sixth}
 bind 2:ctrl;alt;cmd ${lower-middle-sixth}
