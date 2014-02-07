@@ -7,7 +7,15 @@ CFG_DIR=$DIR_WITH_SCRIPTS_STRIPPED/cfg
 ########################################
 # Make the cfg files in ~ be symlinks to the git-controlled versions here.
 ########################################
-for CFG_FILE in .bashrc .emacs .slate .emacs.d/column-marker.el .lein/profiles.clj
+CFG_FILES=(
+    .bashrc
+    .emacs
+    .slate
+    .emacs.d/column-marker.el
+    .lein/profiles.clj
+    complete-hosts.sh
+ )
+for CFG_FILE in "${CFG_FILES[@]}"
 do
     if [ -L ~/$CFG_FILE ] && [ `readlink ~/$CFG_FILE` == "$CFG_DIR/$CFG_FILE" ]; then
         echo "Already a symlink from ~/$CFG_FILE to $CFG_DIR/$CFG_FILE"

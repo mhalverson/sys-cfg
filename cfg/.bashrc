@@ -1,6 +1,6 @@
 #I like git autocomplete, AND
 #I have private things that I don't want checked in to a public git repo
-for SRC_FILE in ~/git-completion.bash ~/.bashrc_private
+for SRC_FILE in ~/git-completion.bash ~/.bashrc_private ~/complete-hosts.sh
 do
     if [ -f $SRC_FILE ]; then
         echo "sourcing $SRC_FILE"
