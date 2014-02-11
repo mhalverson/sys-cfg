@@ -13,7 +13,7 @@ CFG_FILES=(
     .slate
     .emacs.d/column-marker.el
     .lein/profiles.clj
-    complete-hosts.sh
+    .complete-hosts.sh
  )
 for CFG_FILE in "${CFG_FILES[@]}"
 do
