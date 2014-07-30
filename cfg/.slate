@@ -76,9 +76,9 @@ alias upper-right-sixth  move screenSizeX*2/3;screenOriginY screenSizeX/3;screen
 alias left-two-thirds        move screenOriginX;screenOriginY   screenSizeX*2/3;screenSizeY
 alias lower-left-two-sixths  move screenOriginX;screenSizeY/2   screenSizeX*2/3;screenSizeY
 alias upper-left-two-sixths  move screenOriginX;screenOriginY   screenSizeX*2/3;screenSizeY/2
-alias right-two-thirds       move screenSizeX/3;screenOriginY   screenSizeX;screenSizeY
-alias lower-right-two-sixths move screenSizeX/3;screenSizeY/2   screenSizeX;screenSizeY
-alias upper-right-two-sixths move screenSizeX/3;screenOriginY   screenSizeX;screenSizeY/2
+alias right-two-thirds       move screenSizeX/3;screenOriginY   screenSizeX*2/3;screenSizeY
+alias lower-right-two-sixths move screenSizeX/3;screenSizeY/2   screenSizeX*2/3;screenSizeY
+alias upper-right-two-sixths move screenSizeX/3;screenOriginY   screenSizeX*2/3;screenSizeY/2
 
 ### Custom Bindings
 
