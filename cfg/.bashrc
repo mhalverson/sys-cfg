@@ -15,6 +15,9 @@ export PS1='\[\e[1;32m\][\w] \$\[\e[0m\] '
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
+#I like using git diff in emacs-shell
+export GIT_PAGER=/bin/cat
+
 export PATH=$PATH:~/bin
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
