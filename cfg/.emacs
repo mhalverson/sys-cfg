@@ -1,3 +1,31 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; When debugging emacs problems, uncomment the following
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (setq debug-on-error 1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Default packages to install
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar my-packages '(ac-cider
+                      auto-complete
+                      better-defaults
+                      cider
+                      cider-browse-ns
+                      clojure-mode
+                      dash
+                      ;; desktop
+                      ;; fringe-helper
+                      ;; pkg-info
+                      projectile
+                      ))
+
+;; (dolist (p my-packages)
+;;   (unless (package-installed-p p)
+;;     (package-install p)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Danger stuff
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq load-path (cons (expand-file-name "~/.emacs.d/danger-emacs") load-path))
 (require 'danger-core)
 
@@ -6,11 +34,16 @@
 
 ;; I want /usr/local/bin/lein to be on my $PATH in emacs-shell.
 (when (memq window-system '(mac ns))
+  ;; This sets $MANPATH, $PATH, and exec-path from the shell.
   (exec-path-from-shell-initialize))
+;;I want to copy other env vars
+;;(exec-path-from-shell-copy-env "PYTHONPATH")
 
 ;; I want to be able to use "Apple H" to hide the window
 (global-unset-key [(meta h)]) ;; but this isn't good enough :(
 
+;; I want a SUPER key! (no need for a HYPER key yet)
+(setq mac-option-modifier 'super) ;; sets the Option key to Super
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Things from http://bzg.fr/emacs-strip-tease.html
@@ -32,33 +65,11 @@
     (add-to-list 'default-frame-alist
          (cons 'height (/ (- (x-display-pixel-height) 200)
                              (frame-char-height)))))))
-;;(set-frame-size-according-to-resolution)
+(set-frame-size-according-to-resolution)
 
 (scroll-bar-mode 0)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
-
-;; See http://bzg.fr/emacs-hide-mode-line.html
-(defvar-local hidden-mode-line-mode nil)
-(defvar-local hide-mode-line nil)
-(define-minor-mode hidden-mode-line-mode
-  "Minor mode to hide the mode-line in the current buffer."
-  :init-value nil
-  :global nil
-  :variable hidden-mode-line-mode
-  :group 'editing-basics
-  (if hidden-mode-line-mode
-      ;; rotatef will swap the values of the two args
-      (rotatef hide-mode-line mode-line-format)
-    (rotatef mode-line-format hide-mode-line))
-  (when (and (called-interactively-p 'interactive)
-             hidden-mode-line-mode)
-    (run-with-idle-timer
-     0 nil 'message
-     (concat "Hidden Mode Line Mode enabled.  "
-             "Use M-x hidden-mode-line-mode RET to make the mode-line appear."))))
-;; Activate hidden-mode-line-mode globally
-;;(add-hook 'prog-mode-hook #'hidden-mode-line-mode)
 
 (fset 'three-column-disp
    [?\C-x ?1 ?\C-x ?3 ?\C-x ?3 ?\M-x ?b ?a ?l ?a tab return ?\C-x ?2 ?\C-x ?o ?\C-x ?o ?\C-x ?o ?\C-x ?2])
@@ -75,23 +86,17 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Things from home
+;; erc (irc)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (require 'erc)
+;; (setq erc-hide-list '("JOIN" "PART" "QUIT"))
+;; (setq erc-autojoin-channels-alist
+;;       '(("freenode.net" "#clojure")
+;;         ("freenode.net" "#leiningen")))
 
-;; I like knowing where the 80th column is.
-(setq load-path (cons (expand-file-name "~/.emacs.d") load-path))
-;;(require 'column-marker)
-;;(add-hook 'after-change-major-mode-hook (lambda () (interactive) (column-marker-1 80)))
-
-(require 'erc)
-(setq erc-hide-list '("JOIN" "PART" "QUIT"))
-(setq erc-autojoin-channels-alist
-      '(("freenode.net" "#clojure")
-        ("freenode.net" "#leiningen")))
-
-(defun erc-go ()
-  (interactive)
-  (erc :server "irc.freenode.net" :port 6667 :nick "mhalverson"))
+;; (defun erc-go ()
+;;   (interactive)
+;;   (erc :server "irc.freenode.net" :port 6667 :nick "mhalverson"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Things maybe to add.
@@ -121,13 +126,16 @@ Display the results in a hyperlinked *compilation* buffer."
 Display the results in a hyperlinked *compilation* buffer."
   (interactive)
   (compile (concat "lein kibit " buffer-file-name)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; custom set variables
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(dta-default-cfg "desktopaid.conf")
  '(menu-bar-mode nil)
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
@@ -139,3 +147,10 @@ Display the results in a hyperlinked *compilation* buffer."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+(put 'upcase-region 'disabled nil)
+
+(remove-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;;(desktop-save-mode 1)
