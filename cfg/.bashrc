@@ -19,8 +19,8 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 export GIT_PAGER=/bin/cat
 
 export PATH=$PATH:~/bin
-
-export PATH=$PATH:/Users/mhalverson/.arcanist/arcanist/bin
+export PATH=$PATH:~/.arcanist/arcanist/bin
+export PATH=$PATH:/opt/vertica/bin
 
 export EDITOR=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
 alias gemacs=/Applications/Emacs.app/Contents/MacOS/Emacs
