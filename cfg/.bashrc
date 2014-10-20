@@ -20,9 +20,6 @@ export GIT_PAGER=/bin/cat
 
 export PATH=$PATH:~/bin
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
 export PATH=$PATH:/Users/mhalverson/.arcanist/arcanist/bin
 
 export EDITOR=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
