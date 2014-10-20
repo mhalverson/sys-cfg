@@ -28,3 +28,5 @@ export ALTERNATIVE_EDITOR=gemacs
 alias remacs=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
 
 alias h?="history | grep"
+alias cgrep='find . -name "*.clj" -print0 | xargs -0 grep'
+alias rgrep='find . -name "*.rb" -print0 | xargs -0 grep'
