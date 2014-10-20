@@ -8,8 +8,8 @@ do
     fi
 done
 
-#I like a simple prompt
-export PS1="\w > "
+#I like a prompt with green stuff
+export PS1='\[\e[1;32m\][\w] \$\[\e[0m\] '
 
 #I like colored output of ls
 export CLICOLOR=1
