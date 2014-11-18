@@ -1,6 +1,6 @@
 #I like git autocomplete, AND
 #I have private things that I don't want checked in to a public git repo
-for SRC_FILE in ~/git-completion.bash ~/.bashrc_private ~/.complete-hosts.sh
+for SRC_FILE in ~/.git-completion.bash ~/.bashrc_private ~/.complete-hosts.sh
 do
     if [ -f $SRC_FILE ]; then
         echo "sourcing $SRC_FILE"
@@ -21,12 +21,16 @@ export GIT_PAGER=/bin/cat
 export PATH=$PATH:~/bin
 export PATH=$PATH:~/.arcanist/arcanist/bin
 export PATH=$PATH:/opt/vertica/bin
+export PATH=$PATH:$HOME/bin
 
 export EDITOR=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
 alias gemacs=/Applications/Emacs.app/Contents/MacOS/Emacs
 export ALTERNATIVE_EDITOR=gemacs
 alias remacs=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
 
-alias h?="history | grep"
+alias hgrep="history | grep"
 alias cgrep='find . -name "*.clj" -print0 | xargs -0 grep'
 alias rgrep='find . -name "*.rb" -print0 | xargs -0 grep'
+alias pygrep='find . -name "*.py" -print0 | xargs -0 grep'
+
+alias tunnel_v="ssh -L 5433:localhost:5433 vertica04-peak1 -fN"

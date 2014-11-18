@@ -14,6 +14,7 @@ CFG_FILES=(
     .emacs.d/column-marker.el
     .lein/profiles.clj
     .complete-hosts.sh
+    .git-completion.bash
  )
 for CFG_FILE in "${CFG_FILES[@]}"
 do
@@ -45,7 +46,7 @@ done
 # Don't ask, just do it. I hate the proliferation of bash init files,
 #   and this is my environment :)
 ########################################
-for BASH_INIT_FILE in .bash_profile .profile
+for BASH_INIT_FILE in .profile #.bash_profile
 do
     if [ -L ~/$BASH_INIT_FILE ] && [ `readlink ~/$BASH_INIT_FILE` == ".bashrc" ]; then
         echo "Already a symlink from ~/$BASH_INIT_FILE to .bashrc"
