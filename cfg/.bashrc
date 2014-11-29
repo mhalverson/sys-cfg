@@ -1,6 +1,6 @@
 #I like git autocomplete, AND
 #I have private things that I don't want checked in to a public git repo
-for SRC_FILE in ~/.git-completion.bash ~/.bashrc_private ~/.complete-hosts.sh
+for SRC_FILE in ~/.git-completion.bash ~/.bashrc_private ~/.complete-hosts.sh /usr/local/opt/autoenv/activate.sh
 do
     if [ -f $SRC_FILE ]; then
         echo "sourcing $SRC_FILE"
@@ -14,9 +14,6 @@ export PS1='\[\e[1;32m\][\w] \$\[\e[0m\] '
 #I like colored output of ls
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-
-#I like using git diff in emacs-shell
-export GIT_PAGER=/bin/cat
 
 export PATH=$PATH:~/bin
 export PATH=$PATH:~/.arcanist/arcanist/bin
@@ -34,3 +31,6 @@ alias rgrep='find . -name "*.rb" -print0 | xargs -0 grep'
 alias pygrep='find . -name "*.py" -print0 | xargs -0 grep'
 
 alias tunnel_v="ssh -L 5433:localhost:5433 vertica04-peak1 -fN"
+
+#I like using git diff in emacs-shell
+alias egit="GIT_PAGER=/bin/cat git"
