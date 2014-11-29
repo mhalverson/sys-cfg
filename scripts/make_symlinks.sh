@@ -12,6 +12,7 @@ CFG_FILES=(
     .emacs
     .slate
     .emacs.d/column-marker.el
+    .emacs.d/exec-path-from-shell.el
     .lein/profiles.clj
     .complete-hosts.sh
     .git-completion.bash
