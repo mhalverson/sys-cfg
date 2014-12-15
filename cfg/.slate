@@ -65,20 +65,20 @@ alias bottomright corner bottom-right resize:screenSizeX/2;screenSizeY/2
 alias left-third         move screenOriginX;screenOriginY   screenSizeX/3;screenSizeY
 alias lower-left-sixth   move screenOriginX;screenSizeY/2   screenSizeX/3;screenSizeY
 alias upper-left-sixth   move screenOriginX;screenOriginY   screenSizeX/3;screenSizeY/2
-alias middle-third       move screenSizeX/3;screenOriginY   screenSizeX/3;screenSizeY
-alias lower-middle-sixth move screenSizeX/3;screenSizeY/2   screenSizeX/3;screenSizeY
-alias upper-middle-sixth move screenSizeX/3;screenOriginY   screenSizeX/3;screenSizeY/2
-alias right-third        move screenSizeX*2/3;screenOriginY screenSizeX/3;screenSizeY
-alias lower-right-sixth  move screenSizeX*2/3;screenSizeY/2 screenSizeX/3;screenSizeY
-alias upper-right-sixth  move screenSizeX*2/3;screenOriginY screenSizeX/3;screenSizeY/2
+alias middle-third       move screenOriginX+screenSizeX/3;screenOriginY   screenSizeX/3;screenSizeY
+alias lower-middle-sixth move screenOriginX+screenSizeX/3;screenSizeY/2   screenSizeX/3;screenSizeY
+alias upper-middle-sixth move screenOriginX+screenSizeX/3;screenOriginY   screenSizeX/3;screenSizeY/2
+alias right-third        move screenOriginX+screenSizeX*2/3;screenOriginY screenSizeX/3;screenSizeY
+alias lower-right-sixth  move screenOriginX+screenSizeX*2/3;screenSizeY/2 screenSizeX/3;screenSizeY
+alias upper-right-sixth  move screenOriginX+screenSizeX*2/3;screenOriginY screenSizeX/3;screenSizeY/2
 
 
 alias left-two-thirds        move screenOriginX;screenOriginY   screenSizeX*2/3;screenSizeY
 alias lower-left-two-sixths  move screenOriginX;screenSizeY/2   screenSizeX*2/3;screenSizeY
 alias upper-left-two-sixths  move screenOriginX;screenOriginY   screenSizeX*2/3;screenSizeY/2
-alias right-two-thirds       move screenSizeX/3;screenOriginY   screenSizeX*2/3;screenSizeY
-alias lower-right-two-sixths move screenSizeX/3;screenSizeY/2   screenSizeX*2/3;screenSizeY
-alias upper-right-two-sixths move screenSizeX/3;screenOriginY   screenSizeX*2/3;screenSizeY/2
+alias right-two-thirds       move screenOriginX+screenSizeX/3;screenOriginY   screenSizeX*2/3;screenSizeY
+alias lower-right-two-sixths move screenOriginX+screenSizeX/3;screenSizeY/2   screenSizeX*2/3;screenSizeY
+alias upper-right-two-sixths move screenOriginX+screenSizeX/3;screenOriginY   screenSizeX*2/3;screenSizeY/2
 
 ### Custom Bindings
 
