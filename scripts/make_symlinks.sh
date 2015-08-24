@@ -1,11 +1,13 @@
 #!/bin/bash
 
-DIR_OF_THIS_SCRIPT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-DIR_WITH_SCRIPTS_STRIPPED=`echo "$DIR_OF_THIS_SCRIPT" | awk '{gsub("/scripts/?$", "");print}'`
-CFG_DIR=$DIR_WITH_SCRIPTS_STRIPPED/cfg
+SCRIPTS_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
+# peculiarity on mac os x -- the above echoes twice
+SCRIPTS_DIR=$(echo "$SCRIPTS_DIR" | tr -s "[:space:]" "\n" | tail -n 1)
+PROJECT_DIR=$(dirname "$SCRIPTS_DIR")
+CFG_DIR="${PROJECT_DIR}/cfg"
 
 ########################################
-# Make the cfg files in ~ be symlinks to the git-controlled versions here.
+# Make the cfg files in $HOME symlinks to the git-controlled versions here.
 ########################################
 CFG_FILES=(
     .bashrc
@@ -20,26 +22,31 @@ CFG_FILES=(
  )
 for CFG_FILE in "${CFG_FILES[@]}"
 do
-    if [ -L ~/$CFG_FILE ] && [ `readlink ~/$CFG_FILE` == "$CFG_DIR/$CFG_FILE" ]; then
-        echo "Already a symlink from ~/$CFG_FILE to $CFG_DIR/$CFG_FILE"
-        continue;
+    LINK_PATH="${HOME}/${CFG_FILE}"
+    CFG_PATH="${CFG_DIR}/${CFG_FILE}"
+    if [ -L "${LINK_PATH}" ]; then
+        LINK_TARGET=$(readlink "${LINK_PATH}")
+        if [ "${LINK_TARGET}" = "${CFG_PATH}" ]; then
+            echo "Already a symlink from ${LINK_PATH} to ${CFG_PATH}"
+            continue;
+        fi
     fi
 
     SHOULD_CREATE_SYMLINK=true
-    if [ -f ~/$CFG_FILE ]; then
-        echo "Found existing version of ~/$CFG_FILE..."
-        echo "Overwrite existing version of ~/$CFG_FILE to be a symlink?"
-        select yn in "Yes (1)" "No (2)"; do
-            case $yn in
-                [Yy]* ) SHOULD_CREATE_SYMLINK=true; rm ~/$CFG_FILE; break;;
-                [Nn]* ) SHOULD_CREATE_SYMLINK=false; break;;
-            esac
-        done
+    if [ -f "${LINK_PATH}" ]; then
+        echo "Found existing version of ${LINK_PATH}..."
+        echo "Overwrite existing version of ${LINK_PATH} to be a symlink? (y/N)"
+        read -n 1
+        echo
+        case $REPLY in
+                y|Y) SHOULD_CREATE_SYMLINK=true; rm "${LINK_PATH}"; break;;
+                n|N|*) SHOULD_CREATE_SYMLINK=false; break;;
+        esac
     fi
 
     if $SHOULD_CREATE_SYMLINK; then
-        echo "Creating ~/$CFG_FILE as symlink to the git-controlled version"
-        ln -s $CFG_DIR/$CFG_FILE ~/$CFG_FILE
+        echo "Creating ${LINK_PATH} as symlink to ${CFG_PATH}"
+        ln -s "${CFG_PATH}" "${LINK_PATH}"
     fi
 done
 
