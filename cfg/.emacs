@@ -167,3 +167,8 @@ Display the results in a hyperlinked *compilation* buffer."
   "BASH completion hook")
 (add-hook 'shell-dynamic-complete-functions
   'bash-completion-dynamic-complete)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Custom bindings
+(global-set-key (kbd "s-j") 'scroll-up-line)
+(global-set-key (kbd "s-k") 'scroll-down-line)
