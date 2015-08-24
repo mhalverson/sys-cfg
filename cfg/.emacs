@@ -8,6 +8,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar my-packages '(ac-cider
                       auto-complete
+                      bash-completion
                       better-defaults
                       cider
                       cider-browse-ns
@@ -158,3 +159,11 @@ Display the results in a hyperlinked *compilation* buffer."
 
 (add-to-list 'exec-path "/Users/mhalverson/bin")
 ;;"/usr/local/bin")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(autoload 'bash-completion-dynamic-complete
+  "bash-completion"
+  "BASH completion hook")
+(add-hook 'shell-dynamic-complete-functions
+  'bash-completion-dynamic-complete)
