@@ -13,6 +13,7 @@
                       cider-browse-ns
                       clojure-mode
                       dash
+                      exec-path-from-shell
                       ;; desktop
                       ;; fringe-helper
                       ;; pkg-info
@@ -154,3 +155,6 @@ Display the results in a hyperlinked *compilation* buffer."
 (remove-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;;(desktop-save-mode 1)
+
+(add-to-list 'exec-path "/Users/mhalverson/bin")
+;;"/usr/local/bin")
