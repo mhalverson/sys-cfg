@@ -1,0 +1,13 @@
+set input-meta on
+set output-meta on
+
+set bell-style visible
+set colored-stats on
+set history-size 100000
+
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\e[C": forward-char
+"\e[D": backward-char
+
+"": menu-complete

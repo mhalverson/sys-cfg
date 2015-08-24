@@ -16,6 +16,7 @@ CFG_FILES=(
     .emacs.d/column-marker.el
     .emacs.d/exec-path-from-shell.el
     .git-completion.bash
+    .inputrc
     .lein/profiles.clj
     .slate
     .vsqlrc
