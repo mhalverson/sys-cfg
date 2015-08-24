@@ -172,3 +172,44 @@ Display the results in a hyperlinked *compilation* buffer."
 ;; Custom bindings
 (global-set-key (kbd "s-j") 'scroll-up-line)
 (global-set-key (kbd "s-k") 'scroll-down-line)
+
+
+(defun string/starts-with (s begins)
+      "Return non-nil if string S starts with BEGINS."
+      (cond ((>= (length s) (length begins))
+             (string-equal (substring s 0 (length begins)) begins))
+            (t nil)))
+
+(defun chomp-end (str)
+      "Chomp tailing whitespace from STR."
+      (replace-regexp-in-string (rx (* (any " \t\n")) eos)
+                                ""
+                                str))
+(defun git-basedir ()
+  (let* ((filename (buffer-file-name))
+         (cmd (format "echo $(cd $(dirname %s) && git rev-parse --show-toplevel)" filename))
+         (output (shell-command-to-string cmd)))
+    (if (string/starts-with output "fatal:")
+        nil
+      (chomp-end output))))
+
+(print (git-basedir) (get-buffer "*scratch*"))
+
+(defun refresh-python-ctags ()
+  (let ((base-dir (git-basedir)))
+    (if base-dir
+        (shell-command-to-string (format
+                                  "echo $(cd %s && find . -name \"*.py\" -print | etags -)"
+                                  base-dir))
+      nil)))
+
+(defun refresh-ctags ()
+  (cond ((string= major-mode "python-mode")
+         (refresh-python-ctags))
+        (t "no-op")))
+
+(add-hook 'before-save-hook 'refresh-ctags)
+(setq tags-revert-without-query 1)
+;; todo:
+;; make it not ask you every single time if you want to use the new TAGS file
+;;      Tags file <> has changed. Read new contents? (yes or no)
