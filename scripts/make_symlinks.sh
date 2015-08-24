@@ -16,6 +16,7 @@ CFG_FILES=(
     .lein/profiles.clj
     .complete-hosts.sh
     .git-completion.bash
+    .vsqlrc
  )
 for CFG_FILE in "${CFG_FILES[@]}"
 do

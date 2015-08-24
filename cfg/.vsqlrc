@@ -1,0 +1,16 @@
+--prompt
+\set PROMPT1 '%`echo ${VSQL_LOCATION:-vsql}` => '
+\set PROMPT2 '%`echo ${VSQL_LOCATION:-vsql}` > '
+
+--make sure that every query returns how long it took to run
+\timing
+
+-- ignore duplicates in history
+\set HISTCONTROL ignoredups
+
+---- other stuff
+\set count 'select count(1) from'
+\set stats 'select analyze_statistics('
+\set export 'select export_objects('''','
+\set all 'select * from'
+\set open_sessions 'select * from sessions where current_statement != '''''
