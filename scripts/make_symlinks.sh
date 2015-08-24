@@ -9,13 +9,13 @@ CFG_DIR=$DIR_WITH_SCRIPTS_STRIPPED/cfg
 ########################################
 CFG_FILES=(
     .bashrc
+    .complete-hosts.sh
     .emacs
-    .slate
     .emacs.d/column-marker.el
     .emacs.d/exec-path-from-shell.el
-    .lein/profiles.clj
-    .complete-hosts.sh
     .git-completion.bash
+    .lein/profiles.clj
+    .slate
     .vsqlrc
  )
 for CFG_FILE in "${CFG_FILES[@]}"
