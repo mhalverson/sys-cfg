@@ -15,6 +15,14 @@ do
     fi
 done
 
+
+################################################################################
+# Set up autocompletion facilities early
+if [ -f $(brew --prefix)/etc/bash_completion ] && ! shopt -oq posix; then
+    . $(brew --prefix)/etc/bash_completion
+fi
+
+
 ################################################################################
 # Prompt strings
 # see http://askubuntu.com/questions/111840/ps1-problem-messing-up-cli
@@ -104,10 +112,8 @@ function _fab_complete() {
         return 1
     fi
 }
-if [ -f $(brew --prefix)/etc/bash_completion ] && ! shopt -oq posix; then
-    . $(brew --prefix)/etc/bash_completion
-    complete -o nospace -F _fab_complete fab
-fi
+complete -o nospace -F _fab_complete fab
+
 
 ################################################################################
 # Miscellany
