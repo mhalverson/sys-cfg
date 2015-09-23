@@ -4,6 +4,7 @@ DIR_TO_PUT_GIT_REPOS_IN="$HOME/Code/"
 REPOS=(
     https://github.com/purcell/exec-path-from-shell.git
     https://github.com/jonase/kibit.git
+    https://github.com/frobware/cmd-key-happy.git
 )
 
 if [ ! -d "$DIR_TO_PUT_GIT_REPOS_IN" ]; then

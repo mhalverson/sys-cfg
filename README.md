@@ -9,3 +9,4 @@ $ ./scripts/make_symlinks.sh
 
 Then install manually:
 $ brew install bash-completion
+$ cd ~/Code/cmd-key-happy && cat INSTALL # follow the install instructions
