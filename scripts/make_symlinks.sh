@@ -19,6 +19,7 @@ CFG_FILES=(
     .inputrc
     .lein/profiles.clj
     .slate
+    .vimrc
     .vsqlrc
  )
 for CFG_FILE in "${CFG_FILES[@]}"
