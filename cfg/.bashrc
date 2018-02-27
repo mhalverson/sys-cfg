@@ -2,9 +2,7 @@
 # Files to source at start
 TO_SOURCE=(
     ~/.complete-hosts.sh
-    /usr/local/opt/autoenv/activate.sh
     ~/.git-prompt.sh
-    ~/Code/u/tools/resources/completion.sh
     ~/.bashrc_group_private
 )
 for SRC_FILE in "${TO_SOURCE[@]}"
@@ -15,53 +13,55 @@ do
     fi
 done
 
-
 ################################################################################
 # Set up autocompletion facilities early
 if [ -f $(brew --prefix)/etc/bash_completion ] && ! shopt -oq posix; then
     . $(brew --prefix)/etc/bash_completion
 fi
 
-
 ################################################################################
 # Prompt strings
 # see http://askubuntu.com/questions/111840/ps1-problem-messing-up-cli
+function timer_start {
+  timer=${timer:-$SECONDS}
+}
+
+function timer_stop {
+  timer_show=$(($SECONDS - $timer))
+  unset timer
+}
+
+trap 'timer_start' DEBUG
+PROMPT_COMMAND=timer_stop
+
 green=$(tput setaf 2)
 reset=$(tput sgr0)
-export PS1='${PIPESTATUS[@]}::\[$green\][\w] \$\[$reset\] '
+export PS1='${PIPESTATUS[@]}:(\[$green\]${timer_show}s\[$reset\]):\[$green\][\w] \$\[$reset\] '
 
 ################################################################################
-# I like colored output of ls
+# I like colored output
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
+alias grep='grep --color'
+alias egrep='egrep --color'
+alias fgrep='fgrep --color'
+
 ################################################################################
 # PATH
-export PATH=/usr/local/bin:$PATH
-export PATH=$PATH:/usr/local/sbin
 mkdir -p ~/bin
-export PATH=$PATH:~/bin
+export PATH=/usr/local/bin:$PATH:/usr/local/sbin:~/bin
 export PATH=$PATH:~/.arcanist/arcanist/bin
-export PATH=$PATH:~/Downloads/opt/vertica/bin
-export PATH=$PATH:~/Code/u/tools/bin
-export PATH=/Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home/bin:$PATH
 
 ################################################################################
 # Editors
-export EDITOR=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
 alias gemacs=/Applications/Emacs.app/Contents/MacOS/Emacs
-export ALTERNATIVE_EDITOR=gemacs
 alias remacs=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
+# export EDITOR=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
+# export ALTERNATIVE_EDITOR=gemacs
+export EDITOR=vim
+export ALTERNATIVE_EDITOR=vim
 
-################################################################################
-# ssh tunneling
-ADHOC=adhoc04-sjc1
-alias adhoc="ssh $ADHOC"
-
-tunnel () {
-    PORT=$1; shift
-    ssh -L $PORT:localhost:$PORT $ADHOC -N
-}
 
 ################################################################################
 # Git
@@ -85,8 +85,76 @@ __git_complete gco _git_checkout
 __git_complete grb _git_rebase
 
 ################################################################################
+# Miscellany
+export PYTHONSTARTUP=$HOME/.pystartup
+alias clear_hard="clear && printf '\e[3J'"
+# ^see http://askubuntu.com/questions/25077/how-to-really-clear-the-terminal
+
+################################################################################
+# Session stuff
+if [ "$SESSION" ]; then
+    if [ ! -d ~/.session/$SESSION ]; then
+        mkdir -p ~/.session/$SESSION
+    fi
+    export PATH=~/.session/$SESSION/bin:$PATH
+    export HISTFILE=~/.session/$SESSION/bash_history
+    export VSQL_HOME=~/.session/$SESSION
+
+    if [ ! -f $VSQL_HOME/.vsqlrc ]; then
+        ln -s ~/.vsqlrc $VSQL_HOME/.vsqlrc
+    fi
+    if [ -f ~/.session/$SESSION/bashrc ]; then
+        source ~/.session/$SESSION/bashrc
+    fi
+fi
+
+_complete_session() {
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    session_list=`ls ~/.session/ | tr ' ' '\n'`
+    COMPREPLY=( $(compgen -W "${session_list}" -- $cur))
+    return 0
+}
+complete -F _complete_session session
+
+################################################################################
+# Dossiers
+_complete_dossier() {
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    dossier_list=`ls ~/dossier/ | tr ' ' '\n'`
+    COMPREPLY=( $(compgen -W "${dossier_list}" -- $cur))
+    return 0
+}
+complete -F _complete_dossier dossier
+
+################################################################################
+# notification
+notify_me () {
+    # brew install terminal-notifier
+    # https://github.com/julienXX/terminal-notifier
+    #
+    # usage: cmd-that-takes-a-while ; notify_me done
+    terminal-notifier -message "$*"
+}
+
+################################################################################
+# go stuff
+export GOPATH="$HOME/gocode"
+export PATH="$PATH:$GOPATH/bin"
+
+################################################################################
+# haskell stuff
+export PATH="$PATH:~/.cabal/bin"
+docker-refresh() {
+    docker-machine start default
+    eval "$(docker-machine env default)"
+}
+alias stack='stack --docker-run-args="--interactive=false"'
+
+################################################################################
 # bash customizations - see bash manpage
-export CDPATH=.:~:~/Code/u/
+export CDPATH=".:~"
 export FIGNORE='.pyc:~'
 export HISTCONTROL=ignorespace:erasedups
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S  '
@@ -114,17 +182,11 @@ function _fab_complete() {
 }
 complete -o nospace -F _fab_complete fab
 
-
 ################################################################################
 # Miscellany
 export PYTHONSTARTUP=$HOME/.pystartup
 alias clear_hard="clear && printf '\e[3J'"
 # ^see http://askubuntu.com/questions/25077/how-to-really-clear-the-terminal
-
-#Remember this:
-# remacs $(find jobs/vertica/static -type f)
-# to repeat last command: C-x z [z+]
-
 
 ################################################################################
 # Files to source at end

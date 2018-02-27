@@ -106,28 +106,8 @@
 ;; I like abbreviations! "src/com/merced/" = "scm e" (without the space).
 ;; (setq default-abbrev-mode t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Kibit
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Teach compile the syntax of the kibit output
-(require 'compile)
-(add-to-list 'compilation-error-regexp-alist-alist
-         '(kibit "At \\([^:]+\\):\\([[:digit:]]+\\):" 1 2 nil 0))
-(add-to-list 'compilation-error-regexp-alist 'kibit)
-
-;; A convenient command to run "lein kibit" in the project to which
-;; the current emacs buffer belongs to.
-(defun kibit ()
-  "Run kibit on the current project.
-Display the results in a hyperlinked *compilation* buffer."
-  (interactive)
-  (compile "lein kibit"))
-
-(defun kibit-current-file ()
-  "Run kibit on the current file.
-Display the results in a hyperlinked *compilation* buffer."
-  (interactive)
-  (compile (concat "lein kibit " buffer-file-name)))
+;; This makes M-q awesome! Auto formatting of comments :D
+(setq-default fill-column 79)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; custom set variables
@@ -139,10 +119,24 @@ Display the results in a hyperlinked *compilation* buffer."
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(menu-bar-mode nil)
+ '(package-archives
+   (quote
+	(("marmalade" . "http://marmalade-repo.org/packages/")
+	 ("gnu" . "http://elpa.gnu.org/packages/")
+	 ("melpa" . "http://melpa.milkbox.net/packages/")
+	 ("melpa-stable" . "http://stable.melpa.org/packages/"))))
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(size-indication-mode t)
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+ '(safe-local-variable-values
+   (quote ((haskell-indent-spaces . 2)
+           (hindent-style . "chris-done")
+           (hindent-style . "gibiansky")
+           (hindent-style . "johan-tibell")
+           (haskell-process-type . cabal-repl)
+           (shm-lambda-indent-style . leftmost-parent))))
+)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -155,10 +149,7 @@ Display the results in a hyperlinked *compilation* buffer."
 
 (remove-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;;(desktop-save-mode 1)
-
 (add-to-list 'exec-path "/Users/mhalverson/bin")
-;;"/usr/local/bin")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -193,8 +184,6 @@ Display the results in a hyperlinked *compilation* buffer."
         nil
       (chomp-end output))))
 
-(print (git-basedir) (get-buffer "*scratch*"))
-
 (defun refresh-python-ctags ()
   (let ((base-dir (git-basedir)))
     (if base-dir
@@ -208,8 +197,40 @@ Display the results in a hyperlinked *compilation* buffer."
          (refresh-python-ctags))
         (t "no-op")))
 
-(add-hook 'before-save-hook 'refresh-ctags)
-(setq tags-revert-without-query 1)
+;; (add-hook 'before-save-hook 'refresh-ctags)
+;; (setq tags-revert-without-query 1)
 ;; todo:
 ;; make it not ask you every single time if you want to use the new TAGS file
 ;;      Tags file <> has changed. Read new contents? (yes or no)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; OS X El Capitan bug
+(setq visible-bell nil) ;; The default
+(setq ring-bell-function 'ignore)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Haskell
+;; (require 'hi2)
+(defun haskell-setup ()
+  "Setup variables for editing Haskell files."
+  (make-local-variable 'tab-stop-list)
+  (setq tab-stop-list (number-sequence 2 80 2))
+  (setq indent-line-function 'indent-relative)
+  (haskell-indentation-mode)
+  (haskell-indent -1)
+  (haskell-simple-indent -1)
+  )
+(add-hook 'haskell-mode-hook 'haskell-setup)
+(add-hook 'haskell-cabal-mode-hook 'haskell-setup)
+
+
+(defun save-buffer-without-dtw ()
+  (interactive)
+  (let ((b (current-buffer)))   ; memorize the buffer
+    (with-temp-buffer ; new temp buffer to bind the global value of before-save-hook
+      (let ((before-save-hook (remove 'delete-trailing-whitespace before-save-hook)))
+        (with-current-buffer b  ; go back to the current buffer, before-save-hook is now buffer-local
+          (let ((before-save-hook (remove 'delete-trailing-whitespace before-save-hook)))
+            (save-buffer)))))))
