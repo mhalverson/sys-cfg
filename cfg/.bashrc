@@ -2,7 +2,6 @@
 # Files to source at start
 TO_SOURCE=(
     ~/.complete-hosts.sh
-    ~/.git-prompt.sh
     ~/.bashrc_group_private
 )
 for SRC_FILE in "${TO_SOURCE[@]}"
@@ -190,7 +189,8 @@ alias clear_hard="clear && printf '\e[3J'"
 
 ################################################################################
 # Files to source at end
-export HOSTFILE=~/.hostfile
 PRIVATE_BASHRC=~/.bashrc_private
-echo "sourcing $PRIVATE_BASHRC"
-source "$PRIVATE_BASHRC"
+if [ -f $PRIVATE_BASHRC ]; then
+    echo "sourcing $PRIVATE_BASHRC"
+    source "$PRIVATE_BASHRC"
+fi
