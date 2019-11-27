@@ -11,16 +11,10 @@ CFG_DIR="${PROJECT_DIR}/cfg"
 ########################################
 CFG_FILES=(
     .bashrc
-    .complete-hosts.sh
-    .emacs
-    .emacs.d/column-marker.el
-    .emacs.d/exec-path-from-shell.el
     .git-completion.bash
     .inputrc
-    .lein/profiles.clj
     .slate
     .vimrc
-    .vsqlrc
  )
 for CFG_FILE in "${CFG_FILES[@]}"
 do

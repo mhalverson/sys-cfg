@@ -10,13 +10,13 @@ Install the following:
     - karabiner https://pqrs.org/osx/karabiner/
     - vim plugin manager https://github.com/junegunn/vim-plug
     - flux
-    - keepass
+    - keepassX
     - chrome
     - caffeine
+    - brew
 
 Run the following scripts:
 
-    $ ./scripts/init_git_repos.sh
     $ ./scripts/make_symlinks.sh
 
 Then install manually:
@@ -25,3 +25,6 @@ Then install manually:
     # set up Karabiner keyboard remapper
     #   left_option -> left_alt
     #   caps_lock -> left_control
+    # set up Terminal preferences:
+    #   set default Profile of Pro, have the Shell
+    #   exit the window on closure
