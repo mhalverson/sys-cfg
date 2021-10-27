@@ -35,10 +35,12 @@ bind 2:ctrl;alt         throw 1 resize
 bind 3:ctrl;alt         throw 2 resize
 bind h:ctrl;alt;cmd throw left  resize
 bind l:ctrl;alt;cmd throw right resize
-# bind right:ctrl;alt;cmd throw right resize
-# bind left:ctrl;alt;cmd  throw left  resize
-# bind up:ctrl;alt;cmd    throw up    resize
-# bind down:ctrl;alt;cmd  throw down  resize
+bind k:ctrl;alt;cmd throw up  resize
+bind j:ctrl;alt;cmd throw down resize
+bind right:ctrl;alt;cmd throw right resize
+bind left:ctrl;alt;cmd  throw left  resize
+bind up:ctrl;alt;cmd    throw up    resize
+bind down:ctrl;alt;cmd  throw down  resize
 
 # Focus Bindings
 # bind right:cmd    focus right
