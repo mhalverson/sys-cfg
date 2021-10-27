@@ -23,8 +23,9 @@ Then install manually:
 
     $ brew install git && brew install bash-completion
     # set up Karabiner keyboard remapper
-    #   left_option -> left_alt
     #   caps_lock -> left_control
+    #   left_command -> left_alt
+    #   left_option -> left_command
     # set up Terminal preferences:
     #   set default Profile of Pro, have the Shell
     #   exit the window on closure
